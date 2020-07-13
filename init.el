@@ -67,6 +67,8 @@
 (add-hook 'comint-mode-hook 'my-comint-init)
 
 ;; Configure org mode
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 (setq org-agenda-files '("~/Dropbox/org"))
 (setq org-refile-targets '((nil :maxlevel . 9)
                                 (org-agenda-files :maxlevel . 9)))
