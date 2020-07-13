@@ -14,7 +14,7 @@
 	     gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
-	     py-isort conda org))
+	     py-isort conda org org-bullets))
 
 
 ; activate all the packages
@@ -61,10 +61,20 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
-;; enable export to markdown in org-mode
+
+;; Configure org mode
 (setq org-agenda-files '("~/Dropbox/org"))
+(setq org-refile-targets '((nil :maxlevel . 9)
+                                (org-agenda-files :maxlevel . 9)))
+
+;; enable export to markdown in org-mode
 (eval-after-load "org"
   '(require 'ox-md nil t))
+
+;; enable UTF-8 bullets
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 
 ;; Configure conda
 (require 'conda)
