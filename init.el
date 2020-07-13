@@ -61,6 +61,10 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
+;; Configure shell
+(defun my-comint-init ()
+  (setq comint-process-echoes t))
+(add-hook 'comint-mode-hook 'my-comint-init)
 
 ;; Configure org mode
 (setq org-agenda-files '("~/Dropbox/org"))
