@@ -14,12 +14,12 @@
 	     gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
-	     py-isort))
+	     py-isort conda org))
 
 
 ; activate all the packages
 (package-initialize)
-(elpy-enable)
+
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -34,6 +34,8 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (ignore-errors (load custom-file)) ;; It may not yet exist.
+
+(elpy-enable)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -60,6 +62,7 @@
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 ;; enable export to markdown in org-mode
+(setq org-agenda-files '("~/Dropbox/org"))
 (eval-after-load "org"
   '(require 'ox-md nil t))
 
