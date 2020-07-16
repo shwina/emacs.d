@@ -72,6 +72,9 @@
 (setq org-agenda-files '("~/Dropbox/org"))
 (setq org-refile-targets '((nil :maxlevel . 9)
                                 (org-agenda-files :maxlevel . 9)))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
+             "* TODO %?\n %t %i %a")))
 
 ;; enable export to markdown in org-mode
 (eval-after-load "org"
@@ -80,7 +83,6 @@
 ;; enable UTF-8 bullets
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
 
 ;; Configure conda
 (require 'conda)
