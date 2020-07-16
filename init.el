@@ -14,7 +14,7 @@
 	     gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
-	     py-isort conda org org-bullets))
+	     py-isort conda org org-bullets tramp))
 
 
 ; activate all the packages
@@ -110,10 +110,18 @@
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (setq projectile-completion-system 'ivy)
-
+(setq projectile-mode-line "Projectile")
 
 (require 'tramp)
+(setq vc-handled-backends '(SVN Git))
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+(setq tramp-default-method "scp")
+(customize-set-variable
+ 'tramp-ssh-controlmaster-options
+ (concat
+  "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+  "-o ControlMaster=auto -o ControlPersist=yes"))
+
 
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
