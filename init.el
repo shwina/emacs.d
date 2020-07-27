@@ -126,10 +126,7 @@
   "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
   "-o ControlMaster=auto -o ControlPersist=yes"))
 
-
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
-
-(setq term-buffer-maximum-size 0) 
 
 (provide 'init)
