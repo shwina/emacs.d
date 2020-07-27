@@ -69,7 +69,7 @@
 ;; Configure org mode
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c s") 'org-revert-all-org-buffers)
+(global-set-key (kbd "C-c s") 'org-save-all-org-buffers)
 (global-set-key (kbd "C-c g") 'org-revert-all-org-buffers)
 (setq org-agenda-files '("~/Dropbox/org"))
 (setq org-refile-targets '((nil :maxlevel . 9)
