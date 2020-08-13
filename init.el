@@ -20,7 +20,6 @@
 ; activate all the packages
 (package-initialize)
 
-
 ; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -30,15 +29,10 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(setq-default indent-tabs-mode nil)
-
 (setq custom-file "~/.emacs.d/custom.el")
 (ignore-errors (load custom-file)) ;; It may not yet exist.
 
-(elpy-enable)
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
+;; Configure ivy
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -78,6 +72,9 @@
       '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
              "* TODO %?\n %t %i %a")))
 
+(setq org-todo-keywords
+  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
 ;; enable export to markdown in org-mode
 (eval-after-load "org"
   '(require 'ox-md nil t))
@@ -100,6 +97,7 @@
     python-shell-interpreter-args "--simple-prompt -i")
 
 ;; Configure elpy
+(elpy-enable)
 (setq elpy-test-runner 'elpy-test-pytest-runner)
 (setq elpy-test-pytest-runner-command '("py.test" "-x"))
 (setq python-shell-interpreter "ipython"
@@ -107,15 +105,18 @@
 (setq elpy-rpc-virtualenv-path 'current)
 (require 'py-isort)
 
+;; Configure magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'server-switch-hook 'magit-commit-diff)
 
+;; Configure projectile
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (setq projectile-completion-system 'ivy)
 (setq projectile-mode-line "Projectile")
 
+;; Configure tramp
 (require 'tramp)
 (setq vc-handled-backends '(SVN Git))
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
@@ -126,7 +127,11 @@
   "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
   "-o ControlMaster=auto -o ControlPersist=yes"))
 
+;; misc
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default indent-tabs-mode nil)
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
 
 (provide 'init)
+(put 'narrow-to-region 'disabled nil)
