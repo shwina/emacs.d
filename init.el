@@ -73,7 +73,13 @@
              "* TODO %?\n %t %i %a")))
 
 (setq org-todo-keywords
-  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
+(setq org-todo-keyword-faces
+      '(("TODO" . org-warning)
+        ("IN-PROGRESS" . "yellow")
+        ("WAITING" . (:foreground "blue" :weight bold))
+        ("DONE" . org-done)))
 
 ;; enable export to markdown in org-mode
 (eval-after-load "org"
