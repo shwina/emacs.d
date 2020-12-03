@@ -14,7 +14,8 @@
 	     gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
-	     py-isort conda org org-bullets tramp))
+	     py-isort conda org org-bullets tramp
+             flycheck flycheck-pycheckers lsp-python-ms lsp-ui))
 
 
 ; activate all the packages
@@ -89,27 +90,9 @@
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-;; Configure conda
-(require 'conda)
-;; if you want interactive shell support, include:
-(conda-env-initialize-interactive-shells)
-;; if you want eshell support, include:
-(conda-env-initialize-eshell)
-;; if you want auto-activation (see below for details), include:
-(conda-env-autoactivate-mode t)
-
 ;; Make IPython prompt work correctly
 (setq python-shell-interpreter "ipython"
     python-shell-interpreter-args "--simple-prompt -i")
-
-;; Configure elpy
-(elpy-enable)
-(setq elpy-test-runner 'elpy-test-pytest-runner)
-(setq elpy-test-pytest-runner-command '("py.test" "-x"))
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--simple-prompt -c exec('__import__(\\'readline\\')') -i")
-(setq elpy-rpc-virtualenv-path 'current)
-(require 'py-isort)
 
 ;; Configure magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -133,8 +116,38 @@
   "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
   "-o ControlMaster=auto -o ControlPersist=yes"))
 
+;; flycheck
+(global-flycheck-mode t)
+;; note that these bindings are optional
+(global-set-key (kbd "C-c n") 'flycheck-next-error)
+;; this might override a default binding for running a python process,
+;; see comments below this answer
+(global-set-key (kbd "C-c p") 'flycheck-prev-error)
+
+;; flycheck-pycheckers
+;; Allows multiple syntax checkers to run in parallel on Python code
+;; Ideal use-case: pyflakes for syntax combined with mypy for typing
+(with-eval-after-load 'flycheck
+  (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
+  )
+(setq flycheck-pycheckers-checkers
+  '(
+    mypy3
+    pyflakes
+    )
+  )
+
+;; lsp-python-ms
+(setq lsp-python-ms-auto-install-server t)
+(add-hook 'hack-local-variables-hook
+       (lambda ()
+	 (when (derived-mode-p 'python-mode)
+	   (require 'lsp-python-ms)
+	   (lsp)))) ; or lsp-deferred
+(setq lsp-keymap-prefix "C-c C-l")
+(setq lsp-ui-doc-enable nil)
 ;; misc
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default indent-tabs-mode nil)
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
