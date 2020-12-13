@@ -15,7 +15,7 @@
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
-             flycheck flycheck-pycheckers lsp-python-ms lsp-ui))
+             flycheck lsp-ui lsp-pyright))
 
 
 ; activate all the packages
