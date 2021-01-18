@@ -15,7 +15,7 @@
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
-             flycheck flycheck-pycheckers lsp-python-ms lsp-ui))
+             flycheck flycheck-pycheckers lsp-ui))
 
 
 ; activate all the packages
@@ -137,15 +137,23 @@
     )
   )
 
-;; lsp-python-ms
-(setq lsp-python-ms-auto-install-server t)
+;; ;; lsp-python-ms
+;; (setq lsp-python-ms-auto-install-server t)
+;; (add-hook 'hack-local-variables-hook
+;;        (lambda ()
+;; 	 (when (derived-mode-p 'python-mode)
+;; 	   (require 'lsp-python-ms)
+;; 	   (lsp)))) ; or lsp-deferred
+
 (add-hook 'hack-local-variables-hook
        (lambda ()
 	 (when (derived-mode-p 'python-mode)
-	   (require 'lsp-python-ms)
+	   (require 'lsp-pyright)
 	   (lsp)))) ; or lsp-deferred
 (setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
+
+
 ;; misc
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default indent-tabs-mode nil)
