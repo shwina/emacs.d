@@ -15,7 +15,8 @@
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
-             flycheck lsp-ui lsp-pyright))
+             flycheck flycheck-pycheckers lsp-ui lsp-pyright
+             sml-mode))
 
 
 ; activate all the packages
@@ -146,11 +147,18 @@
 	   (lsp)))) ; or lsp-deferred
 (setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
+
 ;; misc
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default indent-tabs-mode nil)
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
 
+;; sml-mode
+(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
+(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
+
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
+
+
