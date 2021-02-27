@@ -158,7 +158,11 @@
 (setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
 (setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
 
+;; highlight matching parens
+(show-paren-mode 1)
+
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
+
 
 
