@@ -10,14 +10,13 @@
 
 ; list the packages you want
 (setq package-list
-      '(elpy cython-mode firestarter
+      '( cython-mode firestarter
 	     gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
              sml-mode))
-
 
 ; activate all the packages
 (package-initialize)
@@ -145,12 +144,12 @@
 ;; 	 (when (derived-mode-p 'python-mode)
 ;; 	   (require 'lsp-python-ms)
 ;; 	   (lsp)))) ; or lsp-deferred
-
 (add-hook 'hack-local-variables-hook
        (lambda ()
 	 (when (derived-mode-p 'python-mode)
 	   (require 'lsp-pyright)
 	   (lsp)))) ; or lsp-deferred
+(setq lsp-enable-file-watchers nil)
 (setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
 
@@ -166,5 +165,3 @@
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
-
-
