@@ -16,7 +16,7 @@
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
-             sml-mode))
+             sml-mode racket-mode))
 
 ; activate all the packages
 (package-initialize)
@@ -163,5 +163,15 @@
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
 
+;; sml-mode
+(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
+(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
+
+;; highlight matching parens
+(show-paren-mode 1)
+
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
+
+
+
