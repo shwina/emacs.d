@@ -10,14 +10,12 @@
 
 ; list the packages you want
 (setq package-list
-      '(elpy cython-mode firestarter
-	     gruvbox-theme autothemer ivy magit
+      '(elpy cython-mode gruvbox-theme autothemer ivy magit
 	     projectile flycheck yasnippet
 	     cuda-mode cmake-mode markdown-mode counsel
 	     py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
-             sml-mode))
-
+             sml-mode racket-mode))
 
 ; activate all the packages
 (package-initialize)
