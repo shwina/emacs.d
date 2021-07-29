@@ -5,23 +5,23 @@
 
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-	("melpa" . "http://melpa.org/packages/")
-	))
+        ("melpa" . "http://melpa.org/packages/")
+        ))
 
 ; list the packages you want
 (setq package-list
       '( cython-mode firestarter
-	     gruvbox-theme autothemer ivy magit
-	     projectile flycheck yasnippet
-	     cuda-mode cmake-mode markdown-mode counsel
-	     py-isort conda org org-bullets tramp
+             gruvbox-theme autothemer ivy magit
+             projectile flycheck yasnippet
+             cuda-mode cmake-mode markdown-mode counsel
+             py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
-             sml-mode racket-mode))
+             sml-mode racket-mode json-mode))
 
 ; activate all the packages
 (package-initialize)
 
-; fetch the list of packages available 
+; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -137,18 +137,31 @@
     )
   )
 
-;; ;; lsp-python-ms
-;; (setq lsp-python-ms-auto-install-server t)
-;; (add-hook 'hack-local-variables-hook
-;;        (lambda ()
-;; 	 (when (derived-mode-p 'python-mode)
-;; 	   (require 'lsp-python-ms)
-;; 	   (lsp)))) ; or lsp-deferred
+;; lsp
+(require 'lsp)
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
+(add-hook 'cuda-mode-hook 'lsp)
+
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1
+      lsp-idle-delay 0.1)  ;; clangd is fast
+
+(add-to-list 'lsp-language-id-configuration '(cuda-mode . "cuda"))
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-stdio-connection "clangd")
+                  :major-modes '(cuda-mode)
+                  :language-id "cuda"
+                  :server-id 'lsp-cuda-mode))
+
 (add-hook 'hack-local-variables-hook
        (lambda ()
-	 (when (derived-mode-p 'python-mode)
-	   (require 'lsp-pyright)
-	   (lsp)))) ; or lsp-deferred
+         (when (derived-mode-p 'python-mode)
+           (require 'lsp-pyright)
+           (lsp)))) ; or lsp-deferred
 (setq lsp-enable-file-watchers nil)
 (setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
@@ -172,6 +185,3 @@
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
-
-
-
