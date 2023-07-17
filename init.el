@@ -16,7 +16,9 @@
              cuda-mode cmake-mode markdown-mode counsel
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
-             sml-mode racket-mode json-mode pyvenv))
+             sml-mode racket-mode json-mode pyvenv company rust-mode
+             dash s editorconfig xclip))
+
 
 ; activate all the packages
 (package-initialize)
@@ -161,7 +163,7 @@
        (lambda ()
          (when (derived-mode-p 'python-mode)
            (require 'lsp-pyright)
-           (lsp)))) ; or lsp-deferred
+           (lsp-deferred)))) ; or lsp-deferred
 (setq lsp-enable-file-watchers nil)
 (setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
@@ -170,18 +172,33 @@
 (setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
 (setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
 
+;; GitHub copilot
+(add-to-list 'load-path "/home/ashwin/workspace/copilot.el")
+(require 'copilot)
+
+(add-hook 'prog-mode-hook 'copilot-mode)
+(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+;; xclip-mode
+(require 'xclip)
+(xclip-mode 1)
+
 ;; misc
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default indent-tabs-mode nil)
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
 
-;; sml-mode
-(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
-(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
-
 ;; highlight matching parens
 (show-paren-mode 1)
+
+;; Trigger completion immediately.
+(setq company-idle-delay 0)
+
+;; Number the candidates (use M-1, M-2 etc to select completions).
+(setq company-show-numbers t)
+
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
