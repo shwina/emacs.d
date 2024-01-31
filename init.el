@@ -17,8 +17,7 @@
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
              sml-mode racket-mode json-mode pyvenv company rust-mode
-             dash s editorconfig xclip))
-
+             dash s editorconfig xclip yaml-mode))
 
 ; activate all the packages
 (package-initialize)
@@ -140,10 +139,12 @@
   )
 
 ;; lsp
+(setq lsp-keymap-prefix "C-c l")  ;; needs to appear before `require' to work
 (require 'lsp)
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
 (add-hook 'cuda-mode-hook 'lsp)
+(add-hook 'rust-mode 'lsp)
 
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024)
@@ -164,8 +165,13 @@
          (when (derived-mode-p 'python-mode)
            (require 'lsp-pyright)
            (lsp-deferred)))) ; or lsp-deferred
+
+(add-hook 'hack-local-variables-hook
+       (lambda ()
+         (when (derived-mode-p 'rust-mode)
+           (lsp-deferred)))) ; or lsp-deferred
+
 (setq lsp-enable-file-watchers nil)
-(setq lsp-keymap-prefix "C-c C-l")
 (setq lsp-ui-doc-enable nil)
 
 ;; sml-mode
@@ -199,6 +205,8 @@
 ;; Number the candidates (use M-1, M-2 etc to select completions).
 (setq company-show-numbers t)
 
+;; pinentry:
+(setq epa-pinentry-mode 'loopback)
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
