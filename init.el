@@ -16,7 +16,7 @@
              cuda-mode cmake-mode markdown-mode counsel
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
-             sml-mode racket-mode json-mode pyvenv company rust-mode
+             json-mode pyvenv company rust-mode
              dash s editorconfig xclip yaml-mode))
 
 ; activate all the packages
