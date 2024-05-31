@@ -173,7 +173,7 @@
 
 (setq lsp-enable-file-watchers nil)
 (setq lsp-ui-doc-enable nil)
-
+(setq lsp-clangd-binary-path "/home/ashwin/miniconda3/envs/theseus_dev/bin/clangd")
 ;; sml-mode
 (setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
 (setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
@@ -207,6 +207,10 @@
 
 ;; pinentry:
 (setq epa-pinentry-mode 'loopback)
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
