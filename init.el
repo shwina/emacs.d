@@ -17,7 +17,7 @@
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-ui lsp-pyright
              json-mode pyvenv company rust-mode
-             dash s editorconfig xclip yaml-mode))
+             dash s editorconfig xclip yaml-mode vterm multi-vterm))
 
 ; activate all the packages
 (package-initialize)
@@ -211,6 +211,10 @@
 ;; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
+
+;; multi-vterm
+(require 'multi-vterm)
+(define-key global-map (kbd "C-c t") 'multi-vterm)
 
 (provide 'init)
 (put 'narrow-to-region 'disabled nil)
