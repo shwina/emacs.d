@@ -1,6 +1,8 @@
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 
+
+;;; Code:
 (package-initialize)
 
 (setq package-archives
@@ -15,7 +17,7 @@
              projectile flycheck yasnippet
              cuda-mode cmake-mode markdown-mode counsel
              py-isort conda org org-bullets tramp
-             flycheck flycheck-pycheckers lsp-ui lsp-pyright
+             flycheck flycheck-pycheckers lsp-pyright
              json-mode pyvenv company rust-mode
              dash s editorconfig xclip yaml-mode vterm multi-vterm))
 
@@ -62,39 +64,6 @@
   (setq comint-process-echoes t))
 (add-hook 'comint-mode-hook 'my-comint-init)
 
-;; Configure org mode
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c s") 'org-save-all-org-buffers)
-(global-set-key (kbd "C-c g") 'org-revert-all-org-buffers)
-(setq org-agenda-files '("~/Dropbox/org"))
-(setq org-refile-targets '((nil :maxlevel . 9)
-                                (org-agenda-files :maxlevel . 9)))
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
-             "* TODO %?\n %t %i %a")))
-
-(setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
-
-(setq org-todo-keyword-faces
-      '(("TODO" . org-warning)
-        ("IN-PROGRESS" . "yellow")
-        ("WAITING" . (:foreground "blue" :weight bold))
-        ("DONE" . org-done)))
-
-;; enable export to markdown in org-mode
-(eval-after-load "org"
-  '(require 'ox-md nil t))
-
-;; enable UTF-8 bullets
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
-;; Make IPython prompt work correctly
-(setq python-shell-interpreter "ipython"
-    python-shell-interpreter-args "--simple-prompt -i")
-
 ;; Configure magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'server-switch-hook 'magit-commit-diff)
@@ -105,17 +74,6 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (setq projectile-completion-system 'ivy)
 (setq projectile-mode-line "Projectile")
-
-;; Configure tramp
-(require 'tramp)
-(setq vc-handled-backends '(SVN Git))
-(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-(setq tramp-default-method "scp")
-(customize-set-variable
- 'tramp-ssh-controlmaster-options
- (concat
-  "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
-  "-o ControlMaster=auto -o ControlPersist=yes"))
 
 ;; flycheck
 (global-flycheck-mode t)
@@ -174,9 +132,6 @@
 (setq lsp-enable-file-watchers nil)
 (setq lsp-ui-doc-enable nil)
 (setq lsp-clangd-binary-path "/home/ashwin/miniconda3/envs/theseus_dev/bin/clangd")
-;; sml-mode
-(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
-(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
 
 ;; GitHub copilot
 (add-to-list 'load-path "/home/ashwin/workspace/copilot.el")
@@ -196,9 +151,6 @@
 (setq global-auto-revert-mode t)
 (setq auto-revert-remote-files t)
 
-;; highlight matching parens
-(show-paren-mode 1)
-
 ;; Trigger completion immediately.
 (setq company-idle-delay 0)
 
@@ -215,6 +167,11 @@
 ;; multi-vterm
 (require 'multi-vterm)
 (define-key global-map (kbd "C-c t") 'multi-vterm)
+(define-key global-map (kbd "C-c n") 'multi-vterm-next)
+
+;; Enable narrow-to-region
+(put 'narrow-to-region 'disabled nil)
 
 (provide 'init)
-(put 'narrow-to-region 'disabled nil)
+;;; init.el ends here
+
