@@ -74,6 +74,7 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (setq projectile-completion-system 'ivy)
 (setq projectile-mode-line "Projectile")
+(setq projectile-use-git-grep t)
 
 ;; flycheck
 (global-flycheck-mode t)
@@ -171,6 +172,9 @@
 
 ;; Enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
+
+;; fringe mode
+(fringe-mode nil)
 
 (provide 'init)
 ;;; init.el ends here
