@@ -21,6 +21,7 @@
              json-mode pyvenv company rust-mode
              dash s editorconfig xclip yaml-mode vterm multi-vterm))
 
+
 ; activate all the packages
 (package-initialize)
 
@@ -58,6 +59,16 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
+(require 'ivy-posframe)
+;; display at `ivy-posframe-style'
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+(ivy-posframe-mode 1)
 
 ;; Configure shell
 (defun my-comint-init ()
@@ -97,6 +108,9 @@
     )
   )
 
+;; show line numbers
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
 ;; lsp
 (setq lsp-keymap-prefix "C-c l")  ;; needs to appear before `require' to work
 (require 'lsp)
@@ -132,7 +146,7 @@
 
 (setq lsp-enable-file-watchers nil)
 (setq lsp-ui-doc-enable nil)
-(setq lsp-clangd-binary-path "/home/ashwin/miniconda3/envs/theseus_dev/bin/clangd")
+; (setq lsp-clangd-binary-path "/home/ashwin/miniconda3/envs/theseus_dev/bin/clangd")
 
 ;; GitHub copilot
 (add-to-list 'load-path "/home/ashwin/workspace/copilot.el")
@@ -175,6 +189,9 @@
 
 ;; fringe mode
 (fringe-mode nil)
+
+;; tramp
+(setq tramp-histfile-override t)
 
 (provide 'init)
 ;;; init.el ends here
