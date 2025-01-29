@@ -19,7 +19,7 @@
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-pyright
              json-mode pyvenv company rust-mode
-             dash s editorconfig xclip yaml-mode vterm multi-vterm ivy-postframe))
+             dash s editorconfig xclip yaml-mode vterm multi-vterm ivy-posframe))
 
 
 ; activate all the packages
@@ -60,7 +60,7 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
-(require 'ivy-postframe)
+(require 'ivy-posframe)
 ;; display at `ivy-posframe-style'
 (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
 (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
