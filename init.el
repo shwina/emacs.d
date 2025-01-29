@@ -12,14 +12,14 @@
 
 ; list the packages you want
 (setq package-list
-      '( cython-mode firestarter
-             gruvbox-theme autothemer ivy magit
+      '( cython-mode
+             autothemer ivy magit
              projectile flycheck yasnippet
              cuda-mode cmake-mode markdown-mode counsel
              py-isort conda org org-bullets tramp
              flycheck flycheck-pycheckers lsp-pyright
              json-mode pyvenv company rust-mode
-             dash s editorconfig xclip yaml-mode vterm multi-vterm))
+             dash s editorconfig xclip yaml-mode vterm multi-vterm ivy-postframe))
 
 
 ; activate all the packages
@@ -60,7 +60,7 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
-(require 'ivy-posframe)
+(require 'ivy-postframe)
 ;; display at `ivy-posframe-style'
 (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
 (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
