@@ -127,6 +127,7 @@
       lsp-idle-delay 0.1)  ;; clangd is fast
 
 (add-to-list 'lsp-language-id-configuration '(cuda-mode . "cuda"))
+(add-to-list 'auto-mode-alist '("\.cu$" . c++-mode))
 (lsp-register-client
  (make-lsp-client :new-connection (lsp-stdio-connection "clangd")
                   :major-modes '(cuda-mode)
